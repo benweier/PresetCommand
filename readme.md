@@ -1,7 +1,7 @@
 # About
 Preset Command is a Sublime Text plugin to manage collections of presets, by quickly and easily applying program or plugin settings from the command palette. Compatible with Sublime Text 2 and 3.
 
-Preset Command is non-persistant insofar that it does not track which preset is active or the state of your settings, allowing you to set up chains of presets that can be used in conjunction with other presets. For example, a Theme and Color Scheme preset may be used with a Proxy preset without overriding each other.
+Preset Command is non-persistent insofar that it does not track which preset is active or the state of your settings, allowing you to set up chains of presets that can be used in conjunction with other presets. For example, a Theme and Color Scheme preset may be used with a Proxy preset without overriding each other.
 
 # Installation
 Install Preset Command through [Package Control](http://wbond.net/sublime_packages/package_control) or download and extract into your Packages folder.
