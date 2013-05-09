@@ -3,9 +3,9 @@ import os
 
 class PresetCommandListCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		presets = sublime.load_settings('Presets.sublime-settings')
+		presets = sublime.decode_value(sublime.load_settings('Presets.sublime-settings'))
 		preset_list = []
-		
+
 		for preset in presets:
 			preset_list.append([preset['name'], preset['description']])
 
