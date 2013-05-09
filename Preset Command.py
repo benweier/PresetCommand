@@ -3,16 +3,25 @@ import os
 
 class PresetCommandListCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		presets = sublime.decode_value(sublime.load_settings('Presets.sublime-settings'))
-		preset_list = []
+		try:
+			resource = sublime.load_resource('Packages/User/Presets.sublime-settings')
+			presets = sublime.decode_value(resource)
 
-		for preset in presets:
-			preset_list.append([preset['name'], preset['description']])
+			if len(presets) == 0:
+				print('No presets found. Get one from the readme!')
+			else:
+				preset_list = []
+				index = 0
+				while index < len(presets):
+					preset_list.append([presets[index]['name'], presets[index]['description']])
+					index += 1
+
+		except:
+			print('Unable to load presets. Is there a presets file?')
 
 		def on_done(index):
 			if index != -1:
 				self.set_preset(presets[index])
-				sublime.status_message('Preset: ' + presets[index]['name'])
 
 		self.window.show_quick_panel(preset_list, on_done)
 
@@ -25,7 +34,13 @@ class PresetCommandListCommand(sublime_plugin.WindowCommand):
 		else:
 			preferences = sublime.load_settings('Preferences.sublime-settings')
 
-		for setting in preset['settings']:
-			preferences.set(setting, preset['settings'][setting])
+		if 'settings' in preset.keys():
+			for setting in preset['settings']:
+				preferences.set(setting, preset['settings'][setting])
 
-		sublime.save_settings(preferences)
+			sublime.save_settings(preferences)
+			sublime.status_message('Preset: ' + presets[index]['name'])
+
+		if 'run' in preset.keys():
+			for cmd in preset['run']:
+				self.window.run_command(cmd)
