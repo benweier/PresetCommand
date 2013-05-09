@@ -15,11 +15,13 @@ Use "Preset Command: Presets" from the command palette to list your current pres
 
 `description`: *Required*. A short description of the preset for your own organisation.
 
-`settings`: *Required*. An object containing one or more `key: value` pairs that the preset will save when activated.
+`settings`: *Optional*. An object containing one or more `key: value` pairs that the preset will save when activated.
+
+`run`: *Optional*. An array containing one or more Sublime Text commands (packaged or plugin) to execute. Arguments not yet supported.
 
 `file`: *Optional*. Defaults to `Preferences.sublime-settings`. Specify a filename to target a plugin settings file such as `Package Control.sublime-settings`, `Emmet.sublime-settings`, or any `.sublime-settings` file in your `User/` directory.
 
-# Examples
+# Settings Examples
 Preset Command includes a pretty simple default preset to get you started.
 
 ```json
@@ -107,3 +109,21 @@ This won't do much if you're already using the default settings but Preset Comma
     }
 ]
 ```
+
+# Run Examples
+
+Preset Command can also run commands just like you would from a shortcut or menu item, and can also be used with a `settings` object in the same preset. Passing command arguments is not yet supported.
+
+#### Want nothing but the code?
+
+```json
+[
+    {
+        "name": "Code Mode",
+        "description": "From the 'I hate fullscreen' department",
+        "run": ["toggle_menu", "toggle_side_bar", "toggle_minimap"]
+    }
+]
+```
+
+This will toggle the menu, sidebar, and minimap from their current state but can't set a specific state.
