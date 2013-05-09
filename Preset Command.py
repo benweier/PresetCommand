@@ -3,16 +3,9 @@ import os
 
 class PresetCommandListCommand(sublime_plugin.WindowCommand):
 	def run(self):
+		presets = sublime.load_settings('Presets.sublime-settings')
 		preset_list = []
-
-		if not os.path.exists(os.path.join(sublime.packages_path(), 'User', 'Presets.sublime-settings')):
-			default_preset = [{"name": "Default", "description": "Default theme and color scheme", "settings": {"theme": "Default.sublime-theme", "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme"}}]
-			f = open(os.path.join(sublime.packages_path(), 'User', 'Presets.sublime-settings'), 'w')
-			f.write(sublime.encode_value(default_preset, True))
-			f.close()
-
-		presets = sublime.decode_value(sublime.load_resource('Packages/User/Presets.sublime-settings'))
-
+		
 		for preset in presets:
 			preset_list.append([preset['name'], preset['description']])
 
