@@ -1,0 +1,13 @@
+[
+    {
+        "caption": "Preset Command: Presets",
+        "command": "preset_command_list"
+    },
+    {
+        "caption": "Preset Command: Manage Presets",
+        "command": "open_file",
+        "args": {
+            "file": "${packages}/User/Presets.sublime-settings"
+        }
+    }
+]
