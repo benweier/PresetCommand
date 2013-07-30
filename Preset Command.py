@@ -38,8 +38,8 @@ class PresetCommandListCommand(sublime_plugin.WindowCommand):
 			for setting in preset['settings']:
 				preferences.set(setting, preset['settings'][setting])
 
-			sublime.save_settings(preferences)
-			sublime.status_message('Preset: ' + presets[index]['name'])
+			sublime.save_settings(preset['file'])
+			sublime.status_message('Preset: ' + preset['name'])
 
 		if 'run' in preset.keys():
 			for cmd in preset['run']:
