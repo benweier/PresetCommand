@@ -31,8 +31,8 @@ Preset Command includes a pretty simple default preset to get you started.
         "description": "Default theme and color scheme",
         "settings":
         {
-            "color_scheme": "Packages/Color Scheme - Default/Monokai Soda.tmTheme",
-            "theme": "Soda Dark.sublime-theme"
+            "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+            "theme": "Default.sublime-theme"
         }
     }
 ]
@@ -49,7 +49,7 @@ This won't do much if you're already using the default settings but Preset Comma
         "description": "Bigger is better",
         "settings":
         {
-            "font_size": 14
+            "font_size": 18
         }
     }
 ]
@@ -126,4 +126,4 @@ Preset Command can also run commands just like you would from a shortcut or menu
 ]
 ```
 
-This will toggle the menu, sidebar, and minimap from their current state but can't set a specific state.
+This will toggle the menu, sidebar, and minimap from their current state but won't set a specific state.
