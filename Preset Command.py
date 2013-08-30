@@ -1,46 +1,50 @@
 import sublime, sublime_plugin
-import os
 
-class PresetCommandListCommand(sublime_plugin.WindowCommand):
-	def run(self):
-		try:
-			resource = sublime.load_resource('Packages/User/Presets.sublime-settings')
-			presets = sublime.decode_value(resource)
-
-			if len(presets) == 0:
-				print('No presets found. Get one from the readme!')
-			else:
-				preset_list = []
-				index = 0
-				while index < len(presets):
-					preset_list.append([presets[index]['name'], presets[index]['description']])
-					index += 1
-
-		except:
-			print('Unable to load presets. Is there a presets file?')
+class PresetCommand():
+	def list_presets(self, window, preset_list):
+		presets = [[preset['name'], preset['description']] for preset in preset_list]
 
 		def on_done(index):
 			if index != -1:
-				self.set_preset(presets[index])
+				self.set_preset(window, preset_list[index])
 
-		self.window.show_quick_panel(preset_list, on_done)
+		window.show_quick_panel(presets, on_done)
 
-	def set_preset(self, preset):
-		if 'file' in preset.keys():
-			if os.path.exists(os.path.join(sublime.packages_path(), 'User', preset['file'])):
-				preferences = sublime.load_settings(preset['file'])
-			else:
-				sublime.error_message('The settings file (' + preset['file'] + ') does not exist.\n\nCheck the preset properties and try again.')
+	def get_presets(self):
+		return sublime.load_settings('Presets.sublime-settings').get('presets', [])
+
+	def set_preset(self, window, preset):
+		if 'file' in preset:
+			pf = preset['file']
 		else:
-			preferences = sublime.load_settings('Preferences.sublime-settings')
+			pf = 'Preferences.sublime-settings'
 
-		if 'settings' in preset.keys():
+		if 'settings' in preset:
+			preferences = sublime.load_settings(pf)
+
 			for setting in preset['settings']:
-				preferences.set(setting, preset['settings'][setting])
+				value = preset['settings'][setting]
+				preferences.set(setting, value)
 
-			sublime.save_settings(preset['file'])
+			sublime.save_settings(pf)
 			sublime.status_message('Preset: ' + preset['name'])
 
-		if 'run' in preset.keys():
-			for cmd in preset['run']:
-				self.window.run_command(cmd)
+		if 'run' in preset:
+			for cmd in (cmd for cmd in preset['run'] if len(preset['run']) > 0):
+				window.run_command(cmd)
+
+PresetCommand = PresetCommand()
+
+class PresetCommandListCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		PresetCommand.list_presets(self.window, PresetCommand.get_presets())
+
+	def is_enabled(self):
+		return len(PresetCommand.get_presets()) > 0
+
+class PresetCommandByNameCommand(sublime_plugin.WindowCommand):
+	def run(self, name):
+		PresetCommand.set_preset(self.window, [preset for preset in PresetCommand.get_presets() if preset['name'] == name][0])
+
+	def is_enabled(self, name):
+		return len([preset for preset in PresetCommand.get_presets() if preset['name'] == name]) > 0
