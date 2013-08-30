@@ -29,11 +29,11 @@ To get started with Preset Command, run `Manage Presets` from the Command Palett
 This won't do much if you're already using the default settings but it gives you a simple template to follow to begin using Preset Command. It can do more than just themes and color schemes too! Anything you can set through a Sublime Text `.sublime-settings` file, even plugins like Package Control, Emmet, or Soda Theme can be set through Preset Command. Advanced presets can even run commands like `toggle_side_bar` and `toggle_minimap` in a single preset.
 
 # Usage
-Use "Preset Command: List Presets" from the command palette to list your current presets and select one to activate. Default shortcut: <kbd>ctrl+shift+f10</kbd> (Windows/Linux) <kbd>super+shift+f10</kbd> (OSX)
+Use "Preset Command: List Presets" from the command palette to list your current presets and select one to activate. Default shortcut: <kbd>ctrl+f4</kbd> (Windows/Linux) <kbd>super+f4</kbd> (OSX)
 
 "Preset Command: Manage Presets" from the command palette will open your `Presets.sublime-settings` file for editing. This file contains an array of JSON objects with the following properties:
 
-`name`: *Required*. The name of your preset shown in the command palette, and also can be passed to the `preset_command_name` command in order to run it directly. It is recommended, but not enforced, that each preset be assigned a unique name.
+`name`: *Required*. The name of your preset shown in the command palette, and also can be passed to the `preset_command_by_name` command in order to run it directly. It is recommended, but not enforced, that each preset be assigned a unique name.
 
 `description`: *Required*. A short description of the preset, shown in the command palette for your own organisation.
 
