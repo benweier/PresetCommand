@@ -1,3 +1,3 @@
 [
-	{ "keys": ["ctrl+shift+f10"], "command": "preset_command_list" }
+	{ "keys": ["ctrl+f4"], "command": "preset_command_list" }
 ]
