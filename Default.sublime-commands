@@ -1,6 +1,6 @@
 [
     {
-        "caption": "Preset Command: Presets",
+        "caption": "Preset Command: List Presets",
         "command": "preset_command_list"
     },
     {
