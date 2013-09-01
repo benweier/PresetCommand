@@ -46,6 +46,22 @@ class PresetCommand():
 
 		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
 
+	def disable_preset(self, window, presets):
+
+		def on_done(index):
+			if index != -1:
+				enabled_presets = self.get_enabled_presets()
+				disabled_presets = self.get_disabled_presets()
+
+				preset = enabled_presets.pop(index)
+				disabled_presets.append(preset)
+
+				self.set_enabled_presets(enabled_presets)
+				self.set_disabled_presets(disabled_presets)
+				sublime.status_message('Preset disabled: '  + preset['name'])
+
+		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
+
 	def set_enabled_presets(set, presets):
 		sublime.load_settings('Presets.sublime-settings').set('presets', presets)
 		sublime.save_settings('Presets.sublime-settings')
@@ -82,3 +98,10 @@ class PresetCommandEnableCommand(sublime_plugin.WindowCommand):
 
 	def is_enabled(self):
 		return len(PresetCommand.get_disabled_presets()) > 0
+
+class PresetCommandDisableCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		PresetCommand.disable_preset(self.window, PresetCommand.get_enabled_presets())
+
+	def is_enabled(self):
+		return len(PresetCommand.get_enabled_presets()) > 0
