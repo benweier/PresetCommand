@@ -162,3 +162,45 @@ Commands are executed in Sublime Text's `Window` scope so commands that perform 
 ```
 
 This will toggle the menu, sidebar, and minimap from their current state but won't set a specific state.
+
+# Activate a Preset by name
+
+Presets can be activated by passing the preset name directly to `preset_command_by_name` and bound to a keyboard shortcut.
+
+### Example
+
+```json
+[
+    { "keys": ["ctrl+f4", "ctrl+d"], "command": "preset_command_by_name", "args": { "name": "Dark" } },
+    { "keys": ["ctrl+f4", "ctrl+l"], "command": "preset_command_by_name", "args": { "name": "Light" } }
+]
+```
+```json
+{
+    "presets":
+    [
+        {
+            "name": "Dark",
+            "description": "Like a smooth cup of coffee...",
+            "settings":
+            {
+                "theme": "Soda Dark.sublime-theme",
+                "color_scheme": "Packages/User/Monokai Soda.tmTheme",
+                "soda_classic_tabs": true,
+                "soda_folder_icons": true
+            }
+        },
+        {
+            "name": "Light",
+            "description": "Classic Soda. Refreshing!",
+            "settings":
+            {
+                "theme": "Soda Light.sublime-theme",
+                "color_scheme": "Packages/User/Espresso Soda.tmTheme",
+                "soda_classic_tabs": false,
+                "soda_folder_icons": false
+            }
+        }
+    ]
+}
+```
