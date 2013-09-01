@@ -9,5 +9,13 @@
         "args": {
             "file": "${packages}/User/Presets.sublime-settings"
         }
+    },
+    {
+        "caption": "Preset Command: Enable Preset",
+        "command": "preset_command_enable"
+    },
+    {
+        "caption": "Preset Command: Disable Preset",
+        "command": "preset_command_disable"
     }
 ]
