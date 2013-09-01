@@ -1,5 +1,5 @@
 # About
-Preset Command is a Sublime Text plugin to manage collections of presets, by quickly and easily applying application or plugin settings from the command palette. Compatible with Sublime Text 3.
+Preset Command is a Sublime Text plugin to manage collections of presets, by quickly and easily applying application or plugin settings from the command palette or with keyboard shortcuts.
 
 Preset Command is non-persistent insofar that it does not track which preset is active or the state of your settings, allowing you to set up chains of presets that can be used in conjunction with other presets. For example, a Theme and Color Scheme preset may be used with a Proxy preset without interfering with each other.
 
@@ -7,7 +7,7 @@ Preset Command is non-persistent insofar that it does not track which preset is 
 Install Preset Command through [Package Control](http://wbond.net/sublime_packages/package_control) or download and extract into your Packages folder.
 
 # Getting Started
-To get started with Preset Command, run `Manage Presets` from the Command Palette. This will open an empty file to begin adding your desired presets.
+To get started with Preset Command, run `Manage Presets` from the Command Palette. This will open an empty file to begin adding presets.
 
 ```json
 {
@@ -29,25 +29,35 @@ To get started with Preset Command, run `Manage Presets` from the Command Palett
 This won't do much if you're already using the default settings but it gives you a simple template to follow to begin using Preset Command. It can do more than just themes and color schemes too! Anything you can set through a Sublime Text `.sublime-settings` file, even plugins like Package Control, Emmet, or Soda Theme can be set through Preset Command. Advanced presets can even run commands like `toggle_side_bar` and `toggle_minimap` in a single preset.
 
 # Usage
-Use "Preset Command: List Presets" from the command palette to list your current presets and select one to activate. Default shortcut: <kbd>ctrl+f4</kbd> (Windows/Linux) <kbd>super+f4</kbd> (OSX)
 
-"Preset Command: Manage Presets" from the command palette will open your `Presets.sublime-settings` file for editing. This file contains an array of JSON objects with the following properties:
+`Preset Command: List Presets` from the command palette will list your currently enabled presets. Select one to activate or press <kbd>Esc</kbd> to cancel.
+Default shortcut: <kbd>ctrl+f4</kbd> (Windows/Linux) <kbd>super+f4</kbd> (OSX). This command is only available if at least 1 preset is enabled.
 
-`name`: *Required*. The name of your preset shown in the command palette, and also can be passed to the `preset_command_by_name` command in order to run it directly. It is recommended, but not enforced, that each preset be assigned a unique name.
+`Preset Command: Manage Presets` from the command palette will open your `Presets.sublime-settings` file for editing. This file contains an array of JSON objects as detailed below.
 
-`description`: *Required*. A short description of the preset, shown in the command palette for your own organisation.
+`Preset Command: Enable Preset` from the command palette will list your currently *disabled* presets. Select one to enable it for use in the `List Presets` command. This command is only available if at least 1 preset is already disabled.
 
-`settings`: *Optional*. An object containing one or more `key: value` pairs that the preset will save when activated.
+`Preset Command: Disable Preset` from the command palette will list your currently *enabled* presets. Select one to disable it from the `List Presets` command. This command is only available if at least 1 preset is enabled.
 
-`run`: *Optional*. An array containing one or more Sublime Text commands (packaged or plugin) to execute. Arguments not yet supported.
+# Preset Structure
 
-`file`: *Optional*. Defaults to `Preferences.sublime-settings`. Specify a filename to target a settings file such as `Package Control.sublime-settings`, `Emmet.sublime-settings`, or any `.sublime-settings` file in your `User/` directory. Only one file can be acted on at a time.
+Preset objects have the following properties:
+
+`name`: **String**. *Required*. The name of your preset shown in the command palette, and also can be passed to the `preset_command_by_name` command in order to run it directly. It is recommended, but not enforced, that each preset be assigned a unique name.
+
+`description`: **String**. *Required*. A short description of the preset, shown in the command palette for your own organisation.
+
+`settings`: **Object**. *Optional*. Contains one or more `key: value` pairs that the preset will save when activated.
+
+`run`: **Array**. *Optional*. Contains one or more Sublime Text commands (packaged or plugin) to execute. Arguments not supported.
+
+`file`: **String**. *Optional*. Defaults to `Preferences.sublime-settings`. Specify a filename to target a settings file such as `Package Control.sublime-settings`, `Emmet.sublime-settings`, or any `.sublime-settings` file in your `User/` directory. Only one file can be acted on at a time.
 
 # Settings Examples
 
 The following are examples of using `settings` in a preset.
 
-### Going into a presentation and need to make your text easier to read on the projector?
+#### Going into a presentation and need to make your text easier to read on the projector?
 
 ```json
 {
@@ -58,14 +68,16 @@ The following are examples of using `settings` in a preset.
             "description": "Bigger is better",
             "settings":
             {
-                "font_size": 20
+                "font_size": 30,
+                "line_numbers": false,
+                "draw_indent_guides": false
             }
         }
     ]
 }
 ```
 
-### Do you like to customise Sublime Text's appearance depending on where you are or the time of day?
+#### Do you like to customise Sublime Text's appearance depending on where you are or the time of day?
 (This example works if you have [Soda Theme](https://github.com/buymeasoda/soda-theme) and [Colour Schemes](http://buymeasoda.github.com/soda-theme/extras/colour-schemes.zip))
 
 ```json
@@ -79,8 +91,8 @@ The following are examples of using `settings` in a preset.
             {
                 "theme": "Soda Dark.sublime-theme",
                 "color_scheme": "Packages/User/Monokai Soda.tmTheme",
-                "soda_classic_tabs": false,
-                "soda_folder_icons": false
+                "soda_classic_tabs": true,
+                "soda_folder_icons": true
             }
         },
         {
@@ -90,15 +102,17 @@ The following are examples of using `settings` in a preset.
             {
                 "theme": "Soda Light.sublime-theme",
                 "color_scheme": "Packages/User/Espresso Soda.tmTheme",
-                "soda_classic_tabs": true,
-                "soda_folder_icons": true
+                "soda_classic_tabs": false,
+                "soda_folder_icons": false
             }
         }
     ]
 }
 ```
 
-### Using Package Control with a proxy at work but not at home?
+#### Using Package Control with a proxy at work but not at home?
+
+When assigning an empty setting value (e.g. `"http_proxy": ""`) through Preset Command, Sublime Text will remove the named setting from the file which will revert back to its default value.
 
 ```json
 {
@@ -128,9 +142,11 @@ The following are examples of using `settings` in a preset.
 
 # Run Examples
 
-Preset Command can also run commands just like you would from a shortcut or menu item, and can also be used with a `settings` object in the same preset. Passing command arguments is not yet supported.
+Preset Command can also run commands just like you would from a shortcut or menu item, and can be used together with a `settings` object in the same preset. Passing command arguments is not supported.
 
-### Want nothing but the code?
+Commands are executed in Sublime Text's `Window` scope so commands that perform actions in open files (such as text manipulation) will not work. This is outside the intended design of Preset Command and it is recommended to use Sublime Text's built-in Macro feature to order to achieve this goal.
+
+#### Want nothing but the code?
 
 ```json
 {
@@ -145,4 +161,4 @@ Preset Command can also run commands just like you would from a shortcut or menu
 }
 ```
 
-This will toggle the menu, sidebar, and minimap from their current state but can't set a specific state.
+This will toggle the menu, sidebar, and minimap from their current state but won't set a specific state.
