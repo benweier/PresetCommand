@@ -21,7 +21,10 @@ class PresetCommand():
 
 			for setting in preset['settings']:
 				value = preset['settings'][setting]
-				preferences.set(setting, value)
+				if len(value) == 0 and preferences.has(setting):
+					preferences.erase(setting)
+				else:
+					preferences.set(setting, value)
 
 			sublime.save_settings(pf)
 			sublime.status_message('Preset: ' + preset['name'])
