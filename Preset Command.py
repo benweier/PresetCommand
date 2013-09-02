@@ -1,4 +1,5 @@
 import sublime, sublime_plugin
+from operator import itemgetter
 
 class PresetCommand():
 	def list_presets(self, window, presets):
@@ -8,6 +9,7 @@ class PresetCommand():
 				self.activate_preset(window, presets[index])
 				sublime.status_message('Preset activated: '  + presets[index]['name'])
 
+		presets.sort(key=itemgetter('name'))
 		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
 
 	def activate_preset(self, window, preset):
@@ -47,6 +49,7 @@ class PresetCommand():
 				self.set_disabled_presets(disabled_presets)
 				sublime.status_message('Preset enabled: '  + preset['name'])
 
+		presets.sort(key=itemgetter('name'))
 		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
 
 	def disable_preset(self, window, presets):
@@ -63,6 +66,7 @@ class PresetCommand():
 				self.set_disabled_presets(disabled_presets)
 				sublime.status_message('Preset disabled: '  + preset['name'])
 
+		presets.sort(key=itemgetter('name'))
 		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
 
 	def set_enabled_presets(set, presets):
