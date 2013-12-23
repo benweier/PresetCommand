@@ -23,7 +23,7 @@ class PresetCommand():
 
 			for setting in preset['settings']:
 				value = preset['settings'][setting]
-				if len(value) == 0 and preferences.has(setting):
+				if value == '' and preferences.has(setting):
 					preferences.erase(setting)
 				else:
 					preferences.set(setting, value)
