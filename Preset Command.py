@@ -1,13 +1,22 @@
 import sublime, sublime_plugin
 from operator import itemgetter
 
-class PresetCommand():
-	def list_presets(self, window, presets):
+is_ST2 = int(sublime.version()) < 3000
 
+class PresetCommand(object):
+	_instance = None
+
+	@classmethod
+	def instance(cls):
+		if not cls._instance:
+			cls._instance = cls()
+		return cls._instance
+
+	def list_presets(self, window, presets):
 		def on_done(index):
 			if index != -1:
 				self.activate_preset(window, presets[index])
-				sublime.status_message('Preset activated: '  + presets[index]['name'])
+				sublime.status_message('Preset activated: ' + presets[index]['name'])
 
 		presets.sort(key=itemgetter('name'))
 		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
@@ -36,7 +45,6 @@ class PresetCommand():
 				window.run_command(cmd)
 
 	def enable_preset(self, window, presets):
-
 		def on_done(index):
 			if index != -1:
 				enabled_presets = self.get_enabled_presets()
@@ -53,7 +61,6 @@ class PresetCommand():
 		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
 
 	def disable_preset(self, window, presets):
-
 		def on_done(index):
 			if index != -1:
 				enabled_presets = self.get_enabled_presets()
@@ -83,32 +90,35 @@ class PresetCommand():
 	def get_disabled_presets(self):
 		return sublime.load_settings('Presets.sublime-settings').get('disabled', [])
 
-PresetCommand = PresetCommand()
+def plugin_loaded():
+    PresetCommand.instance()
 
 class PresetCommandListCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		PresetCommand.list_presets(self.window, PresetCommand.get_enabled_presets())
+		PresetCommand.instance().list_presets(self.window, PresetCommand.instance().get_enabled_presets())
 
 	def is_enabled(self):
-		return len(PresetCommand.get_enabled_presets()) > 0
+		return len(PresetCommand.instance().get_enabled_presets()) > 0
 
 class PresetCommandByNameCommand(sublime_plugin.WindowCommand):
 	def run(self, name):
-		PresetCommand.activate_preset(self.window, [preset for preset in PresetCommand.get_enabled_presets() if preset['name'] == name][0])
+		PresetCommand.instance().activate_preset(self.window, [preset for preset in PresetCommand.instance().get_enabled_presets() if preset['name'] == name][0])
 
 	def is_enabled(self, name):
-		return len([preset for preset in PresetCommand.get_enabled_presets() if preset['name'] == name]) > 0
+		return len([preset for preset in PresetCommand.instance().get_enabled_presets() if preset['name'] == name]) > 0
 
 class PresetCommandEnableCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		PresetCommand.enable_preset(self.window, PresetCommand.get_disabled_presets())
+		PresetCommand.instance().enable_preset(self.window, PresetCommand.instance().get_disabled_presets())
 
 	def is_enabled(self):
-		return len(PresetCommand.get_disabled_presets()) > 0
+		return len(PresetCommand.instance().get_disabled_presets()) > 0
 
 class PresetCommandDisableCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		PresetCommand.disable_preset(self.window, PresetCommand.get_enabled_presets())
+		PresetCommand.instance().disable_preset(self.window, PresetCommand.instance().get_enabled_presets())
 
 	def is_enabled(self):
-		return len(PresetCommand.get_enabled_presets()) > 0
+		return len(PresetCommand.instance().get_enabled_presets()) > 0
+
+if is_ST2: plugin_loaded()
