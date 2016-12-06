@@ -26,18 +26,18 @@ To get started with Preset Command, run `Manage Presets` from the Command Palett
 }
 ```
 
-This won't do much if you're already using the default settings but it gives you a simple template to follow to begin using Preset Command. It can do more than just themes and color schemes too! Anything you can set through a Sublime Text `.sublime-settings` file, even plugins like Package Control, Emmet, or Soda Theme can be set through Preset Command. Advanced presets can even run commands like `toggle_side_bar` and `toggle_minimap` in a single preset.
+This won't do much if you're already using the default settings but it gives you a simple template to follow to begin using Preset Command. It can do more than just themes and color schemes too! Anything you can set through a Sublime Text `.sublime-settings` file, even plugins like Package Control, Emmet, or Soda Theme can be set through Preset Command.
 
 # Usage
 
-`Preset Command: List Presets` from the command palette will list your currently enabled presets. Select one to activate or press <kbd>Esc</kbd> to cancel.
+`Preset Command: List Presets` to select a preset from the command palette.
 Default shortcut: <kbd>ctrl+f4</kbd> (Windows/Linux) <kbd>super+f4</kbd> (OSX). This command is only available if at least 1 preset is enabled.
 
-`Preset Command: Manage Presets` from the command palette will open your `Presets.sublime-settings` file for editing. This file contains an array of JSON objects as detailed below.
+`Preset Command: Manage Presets` to open your `Presets.sublime-settings` file for editing. This file contains an array of JSON objects as detailed below.
 
-`Preset Command: Enable Preset` from the command palette will list your currently *disabled* presets. Select one to enable it for use in the `List Presets` command. This command is only available if at least 1 preset is already disabled.
+`Preset Command: Enable Preset` to list your currently *disabled* presets. Select one to enable it for use in the `List Presets` command. This command is only available if at least 1 preset is already disabled.
 
-`Preset Command: Disable Preset` from the command palette will list your currently *enabled* presets. Select one to disable it from the `List Presets` command. This command is only available if at least 1 preset is enabled.
+`Preset Command: Disable Preset` to list your currently *enabled* presets. Select one to disable it from the `List Presets` command. This command is only available if at least 1 preset is enabled.
 
 # Preset Structure
 
