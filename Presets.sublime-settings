@@ -1,23 +1,13 @@
 {
-	// Presets must be contained in their own JSON object with at least one optional property
-	// Run command are executed within the Window scope so View, Text, or Application commands
-	// cannot be used. If these commands are needed then it is recomminded to use Sublime's
-	// built-in Macro feature instead.
-	//
-	// @name String (required)
-	// @description String (required)
-	// @settings Object (optional)
-	// @file String (optional)
-	// @run Array (optional)
-	//
 	// {
 	//		"name": "",
 	//		"description": "",
-	//		"settings":
-	//		{
-	//		},
-	//		"file": "",
-	//		"run": []
+	//		"settings": {
+	//			"Preferences.sublime-settings": {
+	//				"theme": "",
+	//				"color_scheme": ""
+	//			}
+	//		}
 	// }
 	"presets":
 	[
