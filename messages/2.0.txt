@@ -1,0 +1,46 @@
+Preset Command 2.0
+==================
+
+This version of Preset Command introduces a breaking change to the preset structure.
+
+Previously where you would provide a "file" string and a "settings" object separately:
+
+{
+	"name": "",
+	"description": "",
+	"file": "Preferences.sublime-settings",
+	"settings": {
+		"theme": "",
+		"color": ""
+	}
+}
+
+Has now been reduced to a single "settings" object keyed by the same file name string:
+
+{
+	"name": "",
+	"description": "",
+	"settings": {
+		"Preferences.sublime-settings": {
+			"theme": "",
+			"color": ""
+		}
+	}
+}
+
+This allows multiple files to be affected by a single preset, for example:
+
+{
+	"name": "",
+	"description": "",
+	"settings": {
+		"Preferences.sublime-settings": {
+			"theme": "",
+			"color": ""
+		},
+		"Package Control.sublime-settings": {
+			"http_proxy": "",
+			"https_proxy": ""
+		}
+	}
+}
