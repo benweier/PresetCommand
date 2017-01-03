@@ -16,10 +16,11 @@ To get started with Preset Command, run `Manage Presets` from the Command Palett
         {
             "name": "Default",
             "description": "Default theme and color scheme",
-            "settings":
-            {
-                "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
-                "theme": "Default.sublime-theme"
+            "settings": {
+                "Preferences.sublime-settings": {
+                    "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+                    "theme": "Default.sublime-theme"
+                }
             }
         }
     ]
@@ -66,11 +67,12 @@ The following are examples of using `settings` in a preset.
         {
             "name": "Projector Mode",
             "description": "Bigger is better",
-            "settings":
-            {
-                "font_size": 30,
-                "line_numbers": false,
-                "draw_indent_guides": false
+            "settings": {
+                "Preferences.sublime-settings": {
+                    "font_size": 30,
+                    "line_numbers": false,
+                    "draw_indent_guides": false
+                }
             }
         }
     ]
@@ -87,23 +89,25 @@ The following are examples of using `settings` in a preset.
         {
             "name": "Dark",
             "description": "Like a smooth cup of coffee...",
-            "settings":
-            {
-                "theme": "Soda Dark.sublime-theme",
-                "color_scheme": "Packages/User/Monokai Soda.tmTheme",
-                "soda_classic_tabs": true,
-                "soda_folder_icons": true
+            "settings": {
+                "Preferences.sublime-settings": {
+                    "theme": "Soda Dark.sublime-theme",
+                    "color_scheme": "Packages/User/Monokai Soda.tmTheme",
+                    "soda_classic_tabs": true,
+                    "soda_folder_icons": true
+                }
             }
         },
         {
             "name": "Light",
             "description": "Classic Soda. Refreshing!",
-            "settings":
-            {
-                "theme": "Soda Light.sublime-theme",
-                "color_scheme": "Packages/User/Espresso Soda.tmTheme",
-                "soda_classic_tabs": false,
-                "soda_folder_icons": false
+            "settings": {
+                "Preferences.sublime-settings": {
+                    "theme": "Soda Light.sublime-theme",
+                    "color_scheme": "Packages/User/Espresso Soda.tmTheme",
+                    "soda_classic_tabs": false,
+                    "soda_folder_icons": false
+                }
             }
         }
     ]
@@ -122,19 +126,21 @@ When assigning an empty setting value (e.g. `"http_proxy": ""`) through Preset C
             "name": "Home",
             "description": "No proxy",
             "settings": {
-                "http_proxy": "",
-                "https_proxy": ""
-            },
-            "file": "Package Control.sublime-settings"
+                "Package Control.sublime-settings": {
+                    "http_proxy": "",
+                    "https_proxy": ""
+                }
+            }
         },
         {
             "name": "Work",
             "description": "Proxy",
             "settings": {
-                "http_proxy": "example.proxy:1234",
-                "https_proxy": "example.proxy:1234"
-            },
-            "file": "Package Control.sublime-settings"
+                "Package Control.sublime-settings": {
+                    "http_proxy": "example.proxy:1234",
+                    "https_proxy": "example.proxy:1234"
+                }
+            }
         }
     ]
 }
@@ -182,23 +188,25 @@ Presets can be activated by passing the preset name directly to `preset_command_
         {
             "name": "Dark",
             "description": "Like a smooth cup of coffee...",
-            "settings":
-            {
-                "theme": "Soda Dark.sublime-theme",
-                "color_scheme": "Packages/User/Monokai Soda.tmTheme",
-                "soda_classic_tabs": true,
-                "soda_folder_icons": true
+            "settings": {
+                "Preferences.sublime-settings": {
+                    "theme": "Soda Dark.sublime-theme",
+                    "color_scheme": "Packages/User/Monokai Soda.tmTheme",
+                    "soda_classic_tabs": true,
+                    "soda_folder_icons": true
+                }
             }
         },
         {
             "name": "Light",
             "description": "Classic Soda. Refreshing!",
-            "settings":
-            {
-                "theme": "Soda Light.sublime-theme",
-                "color_scheme": "Packages/User/Espresso Soda.tmTheme",
-                "soda_classic_tabs": false,
-                "soda_folder_icons": false
+            "settings": {
+                "Preferences.sublime-settings": {
+                    "theme": "Soda Light.sublime-theme",
+                    "color_scheme": "Packages/User/Espresso Soda.tmTheme",
+                    "soda_classic_tabs": false,
+                    "soda_folder_icons": false
+                }
             }
         }
     ]
