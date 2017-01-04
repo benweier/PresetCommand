@@ -22,27 +22,23 @@ class PresetCommand(object):
 		window.show_quick_panel([[preset['name'], preset['description']] for preset in presets], on_done)
 
 	def activate_preset(self, window, preset):
-		if 'file' in preset:
-			pf = preset['file']
-		else:
-			pf = 'Preferences.sublime-settings'
+		for key in (key for key in preset['settings'] if 'settings' in preset):
+			resources = sublime.find_resources(key)
 
-		if 'settings' in preset:
-			preferences = sublime.load_settings(pf)
+			for resource in (resource for resource in resources if len(resources) > 0):
+				preferences = sublime.load_settings(key)
 
-			for setting in preset['settings']:
-				value = preset['settings'][setting]
-				if value == '' and preferences.has(setting):
-					preferences.erase(setting)
-				else:
-					preferences.set(setting, value)
+				for setting in preset['settings'][key]:
+					value = preset['settings'][key][setting]
+					preferences.set(setting, value) if value != '' else preferences.erase(setting)
 
-			sublime.save_settings(pf)
-			sublime.status_message('Preset: ' + preset['name'])
+			sublime.save_settings(key)
 
 		if 'run' in preset:
 			for cmd in (cmd for cmd in preset['run'] if len(preset['run']) > 0):
 				window.run_command(cmd)
+
+		sublime.status_message('Preset: ' + preset['name'])
 
 	def enable_preset(self, window, presets):
 		def on_done(index):
