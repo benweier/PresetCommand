@@ -4,7 +4,7 @@ Preset Command is a Sublime Text plugin to manage collections of presets, by qui
 Preset Command is non-persistent insofar that it does not track which preset is active or the state of your settings, allowing you to set up chains of presets that can be used in conjunction with other presets. For example, a Theme and Color Scheme preset may be used with a Proxy preset without interfering with each other.
 
 # Installation
-Install Preset Command through [Package Control](http://wbond.net/sublime_packages/package_control) or download and extract into your Packages folder.
+Install Preset Command through [Package Control](https://packagecontrol.io) or download and extract into your Packages folder.
 
 # Getting Started
 To get started with Preset Command, run `Manage Presets` from the Command Palette. This will open an empty file to begin adding presets.
@@ -27,7 +27,34 @@ To get started with Preset Command, run `Manage Presets` from the Command Palett
 }
 ```
 
+
 This won't do much if you're already using the default settings but it gives you a simple template to follow to begin using Preset Command. It can do more than just themes and color schemes too! Anything you can set through a Sublime Text `.sublime-settings` file, even plugins like Package Control, Emmet, or Soda Theme can be set through Preset Command.
+
+Multiple settings files can be changed in a single preset, simply provide more than one filename settings object.
+
+```json
+{
+    "presets":
+    [
+        {
+            "name": "Work Mode",
+            "description": "Hi Ho, Hi Ho",
+            "settings": {
+                "Preferences.sublime-settings": {
+                    "default_line_ending": "unix",
+                    "ensure_newline_at_eof_on_save": true,
+                    "tab_size": 4,
+                    "trim_trailing_white_space_on_save": true
+                },
+                "Package Control": {
+                    "http_proxy": "example.proxy:1234",
+                    "https_proxy": "example.proxy:1234"
+                }
+            }
+        }
+    ]
+}
+```
 
 # Usage
 
@@ -48,11 +75,9 @@ Preset objects have the following properties:
 
 `description`: **String**. *Required*. A short description of the preset, shown in the command palette for your own organisation.
 
-`settings`: **Object**. *Optional*. Contains one or more `key: value` pairs that the preset will save when activated.
+`settings`: **Object**. *Optional*. Contains one or more `'filename': { settings }` objects that the preset will save when activated. Multiple filename settings objects may be provided and the settings will applied in order.
 
 `run`: **Array**. *Optional*. Contains one or more Sublime Text commands (packaged or plugin) to execute. Arguments not supported.
-
-`file`: **String**. *Optional*. Defaults to `Preferences.sublime-settings`. Specify a filename to target a settings file such as `Package Control.sublime-settings`, `Emmet.sublime-settings`, or any `.sublime-settings` file in your `User/` directory. Only one file can be acted on at a time.
 
 # Settings Examples
 
