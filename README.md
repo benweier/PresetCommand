@@ -46,7 +46,7 @@ Multiple settings files can be changed in a single preset, simply provide more t
                     "tab_size": 4,
                     "trim_trailing_white_space_on_save": true
                 },
-                "Package Control": {
+                "Package Control.sublime-settings": {
                     "http_proxy": "example.proxy:1234",
                     "https_proxy": "example.proxy:1234"
                 }
